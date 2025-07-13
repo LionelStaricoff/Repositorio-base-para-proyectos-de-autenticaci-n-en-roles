@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.annotation.processing.Generated;
 import java.util.Set;
 
 @Entity(name = "UserEntity")
@@ -20,10 +19,10 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",nullable = false)
-    private String name;
+    @Column(name = "name")
+    private String email;
 
-    @Column(name = "password",nullable = false)
+    @Column(name = "password")
     private String password;
 
     private boolean accountExpired;

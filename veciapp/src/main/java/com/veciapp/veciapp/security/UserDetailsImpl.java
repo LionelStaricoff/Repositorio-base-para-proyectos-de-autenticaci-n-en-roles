@@ -1,4 +1,4 @@
-package com.veciapp.veciapp.segurity;
+package com.veciapp.veciapp.security;
 
 import com.veciapp.veciapp.entities.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private final String username;
+    private final String email;
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
     private final boolean accountExpired;
@@ -18,7 +18,7 @@ public class UserDetailsImpl implements UserDetails {
     private final boolean enabled;
 
     public UserDetailsImpl(UserEntity user) {
-        this.username = user.getName();
+        this.email = user.getEmail();
         this.password = user.getPassword();
         this.authorities = user.getRoles().stream()
                 .map(role -> (GrantedAuthority) role::getName)
@@ -41,7 +41,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.email;
     }
 
     @Override
