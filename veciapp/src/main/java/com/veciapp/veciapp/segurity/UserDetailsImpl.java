@@ -1,4 +1,4 @@
-package com.veciapp.veciapp.security;
+package com.veciapp.veciapp.segurity;
 
 import com.veciapp.veciapp.entities.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
