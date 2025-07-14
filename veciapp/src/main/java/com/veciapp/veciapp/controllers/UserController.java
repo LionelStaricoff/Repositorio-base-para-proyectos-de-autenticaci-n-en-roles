@@ -1,4 +1,4 @@
-package com.veciapp.veciapp;
+package com.veciapp.veciapp.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
