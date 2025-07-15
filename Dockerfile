@@ -3,7 +3,7 @@ FROM eclipse-temurin:21
 WORKDIR /veciapp
 
 # Copia tu JAR al contenedor
-COPY target/veciapp-0.0.1-SNAPSHOT.jar /app/veciapp.jar
+COPY veciapp/target/veciapp-0.0.1-SNAPSHOT.jar veciapp/app/veciapp.jar
 
 EXPOSE 8080
 
