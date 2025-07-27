@@ -25,4 +25,14 @@ public class UserController {
     public ResponseEntity<UserResponseDto> createUSer(@RequestBody @Valid LoginDto loginDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserResponseDto(userService.createUser(loginDto)));
     }
+
+    /**
+     *
+     * mvn clean package
+     *  docker build -t lionelstaricoff/veciapp:v1 .
+     * docker push lionelstaricoff/veciapp:v1
+     * https://dashboard.render.com/web/srv-cugdnl0gph6c73d1a7g0/deploys/dep-d1qrg1je5dus73dugaf0
+     *  versionado docker:
+     *push lionelstaricoff/veciapp:v2 : creando usuario ok
+     */
 }
