@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.lang.model.element.Name;
 import java.util.Set;
 
 @Entity(name = "UserEntity")
-@Table(name = "user")
+@Table(name = "user_entity")
 @Builder
 @Getter
 @AllArgsConstructor
@@ -19,11 +20,18 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name="img")
+    private String img;
+
+    @Column(name="name")
+    private String name;
+
 
     private boolean accountExpired;
     private boolean accountLocked;
