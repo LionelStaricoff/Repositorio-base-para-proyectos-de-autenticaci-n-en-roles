@@ -18,7 +18,8 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginDto loginDto) {
-        return null;
+        return  ResponseEntity.status(HttpStatus.CREATED).headers(userService.login(loginDto)).body("login ok");
+
     }
 
     @PostMapping

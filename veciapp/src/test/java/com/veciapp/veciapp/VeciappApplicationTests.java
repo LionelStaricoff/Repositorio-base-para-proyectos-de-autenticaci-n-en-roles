@@ -77,4 +77,32 @@ class OpenLabApplicationTests {
 				() -> assertNotNull(result.getBody())
 		);
 	}
+
+
+	@Label("Loguear un usuario")
+	@Test
+	void login() throws JsonProcessingException {
+		LoginDto user = new LoginDto("Lionhead@gmail.com", "Lionhead01@gmail.com");
+
+		String json = """
+                {
+                    "email": "%s",
+                    "password": "%s"
+                }
+                """.formatted(user.email(), user.password());
+
+		System.out.println("json = " + json);
+		HttpEntity<String> request = new HttpEntity<>(json, headers);
+
+		// Asegúrate de incluir el esquema en la URL
+		ResponseEntity<UserResponseDto> result = testRestTemplate.exchange("http://localhost:" + port + "/api/v1/user/login", HttpMethod.POST, request, UserResponseDto.class);
+
+		Util.toJsonPrint("result = ", result.getHeaders());
+
+		assertAll(
+				() -> assertEquals(HttpStatus.CREATED, result.getStatusCode()),
+				() -> assertEquals(201, result.getStatusCode().value()),
+				() -> assertNotNull(result.getBody())
+		);
+	}
 }

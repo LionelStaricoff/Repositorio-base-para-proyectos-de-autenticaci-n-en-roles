@@ -36,7 +36,8 @@ public class UserEntity {
     private boolean accountExpired;
     private boolean accountLocked;
     private boolean credentialsExpired;
-    private boolean enabled;
+    @Builder.Default
+    private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
