@@ -34,11 +34,15 @@ public class UserService implements CustomUserDetailsService {
     @Override
     public HttpHeaders login(LoginDto loginDto) {
         UserDetailsImpl user = userRepository.findByEmail(loginDto.email());
+      /*  UserEntity user = userRepository.findAll().stream()
+                .filter(u -> u.getEmail().equalsIgnoreCase(loginDto.email()))
+                .findFirst()
+                .orElse(null);*/
         if (user == null) throw new EntityNotFoundException("User not found");
         if (!passwordEncoder.matches(user.getPassword(), loginDto.password()))
             throw new RuntimeException("Datos incorrectos");
         HttpHeaders header = new HttpHeaders();
-        header.set("AUTHORIZATION","BEARER ".concat(tokenService.generateToken(user)));
+        header.set("AUTHORIZATION","BEARER ".concat(tokenService.generateToken((user))));
         return header;
     }
 

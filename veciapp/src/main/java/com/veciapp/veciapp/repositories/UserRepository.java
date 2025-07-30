@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
 
-    @Query("SELECT NEW com.veciapp.veciapp.security.UserDetailsImpl(u) FROM UserEntity u WHERE u.email=: email")
+    @Query("SELECT NEW com.veciapp.veciapp.security.UserDetailsImpl(u) FROM UserEntity u WHERE u.email = :email")
     UserDetailsImpl findByEmail(@Param("email") String email);
+
 }
