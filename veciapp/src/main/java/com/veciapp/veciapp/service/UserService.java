@@ -38,9 +38,10 @@ public class UserService implements CustomUserDetailsService {
                 .filter(u -> u.getEmail().equalsIgnoreCase(loginDto.email()))
                 .findFirst()
                 .orElse(null);*/
-        if (user == null) throw new EntityNotFoundException("User not found");
-        if (!passwordEncoder.matches(user.getPassword(), loginDto.password()))
+
+        if (!passwordEncoder.matches( loginDto.password(),user.getPassword()))
             throw new RuntimeException("Datos incorrectos");
+
         HttpHeaders header = new HttpHeaders();
         header.set("AUTHORIZATION","BEARER ".concat(tokenService.generateToken((user))));
         return header;

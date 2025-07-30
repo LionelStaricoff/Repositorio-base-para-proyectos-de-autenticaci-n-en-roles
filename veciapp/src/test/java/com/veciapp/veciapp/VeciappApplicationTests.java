@@ -1,9 +1,11 @@
 package com.veciapp.veciapp;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.veciapp.veciapp.Util.Util;
 import com.veciapp.veciapp.dto.LoginDto;
 import com.veciapp.veciapp.dto.UserResponseDto;
+import io.swagger.v3.core.util.Json;
 import jdk.jfr.Label;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -95,7 +97,7 @@ class OpenLabApplicationTests {
 		HttpEntity<String> request = new HttpEntity<>(json, headers);
 
 		// Asegúrate de incluir el esquema en la URL
-		ResponseEntity<UserResponseDto> result = testRestTemplate.exchange("http://localhost:" + port + "/api/v1/user/login", HttpMethod.POST, request, UserResponseDto.class);
+		ResponseEntity<String> result = testRestTemplate.exchange("http://localhost:" + port + "/api/v1/user/login", HttpMethod.POST, request, String.class);
 
 		Util.toJsonPrint("result = ", result.getHeaders());
 
