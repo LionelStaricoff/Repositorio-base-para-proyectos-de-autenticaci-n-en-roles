@@ -21,7 +21,7 @@ public class UserDetailsImpl implements UserDetails {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.authorities = user.getRoles().stream()
-                .map(role -> (GrantedAuthority) role::getName)
+                .map(role -> (GrantedAuthority) () -> "ROLE_" + role.getName())
                 .collect(Collectors.toList());
         this.accountExpired = user.isAccountExpired();
         this.accountLocked = user.isAccountLocked();
