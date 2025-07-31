@@ -65,7 +65,7 @@ class OpenLabApplicationTests {
 	 *  versionado docker:
 	 *push lionelstaricoff/veciapp:v2 : creando usuario ok
 	 *
-	 * veciapp:v3: login
+	 * veciapp:4: login
 	 */
 
 	@Label("Agregar un nuevo usuario")

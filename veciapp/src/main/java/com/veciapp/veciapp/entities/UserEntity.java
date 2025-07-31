@@ -3,6 +3,8 @@ package com.veciapp.veciapp.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.lang.model.element.Name;
 import java.util.Set;
@@ -39,13 +41,13 @@ public class UserEntity {
     @Builder.Default
     private boolean enabled = true;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    @JsonIgnore
     private Set<RoleEntity> roles;
 
 }

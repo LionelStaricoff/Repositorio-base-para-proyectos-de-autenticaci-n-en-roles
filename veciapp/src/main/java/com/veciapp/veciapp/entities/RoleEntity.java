@@ -22,7 +22,4 @@ public class RoleEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    @JsonIgnore
-    private Set<UserEntity> users;
 }
