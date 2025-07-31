@@ -1,11 +1,9 @@
 package com.veciapp.veciapp;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.veciapp.veciapp.Util.Util;
 import com.veciapp.veciapp.dto.LoginDto;
 import com.veciapp.veciapp.dto.UserResponseDto;
-import io.swagger.v3.core.util.Json;
 import jdk.jfr.Label;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +37,22 @@ class OpenLabApplicationTests {
 		testRestTemplate = new TestRestTemplate(restTemplateBuilder);
 		headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		String token = "";
+		LoginDto user = new LoginDto("Lionhead@gmail.com", "Lionhead01@gmail.com");
+
+		String json = """
+                {
+                    "email": "%s",
+                    "password": "%s"
+                }
+                """.formatted(user.email(), user.password());
+
+		System.out.println("json = " + json);
+		HttpEntity<String> request = new HttpEntity<>(json, headers);
+
+		// Asegúrate de incluir el esquema en la URL
+		ResponseEntity<String> result = testRestTemplate.exchange("http://localhost:" + port + "/api/v1/user/login", HttpMethod.POST, request, String.class);
+
+		String token = result.getHeaders().get("authorization").getFirst();
 		headers.set("authorization", "BEARER ".concat(token));
 	}
 
@@ -51,6 +64,8 @@ class OpenLabApplicationTests {
 	 * https://dashboard.render.com/web/srv-cugdnl0gph6c73d1a7g0/deploys/dep-d1qrg1je5dus73dugaf0
 	 *  versionado docker:
 	 *push lionelstaricoff/veciapp:v2 : creando usuario ok
+	 *
+	 * veciapp:v3: login
 	 */
 
 	@Label("Agregar un nuevo usuario")
@@ -104,6 +119,25 @@ class OpenLabApplicationTests {
 		assertAll(
 				() -> assertEquals(HttpStatus.CREATED, result.getStatusCode()),
 				() -> assertEquals(201, result.getStatusCode().value()),
+				() -> assertNotNull(result.getBody())
+		);
+	}
+
+
+	@Label("test")
+	@Test
+	void test() throws JsonProcessingException {
+
+		HttpEntity<String> request = new HttpEntity<>(headers);
+
+		// Asegúrate de incluir el esquema en la URL
+		ResponseEntity<String> result = testRestTemplate.exchange("http://localhost:" + port + "/api/v1/user/test", HttpMethod.GET, request, String.class);
+
+		System.out.println("result = " + result);
+
+		assertAll(
+				() -> assertEquals(HttpStatus.OK, result.getStatusCode()),
+				() -> assertEquals(200, result.getStatusCode().value()),
 				() -> assertNotNull(result.getBody())
 		);
 	}

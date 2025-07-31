@@ -27,5 +27,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserResponseDto(userService.createUser(loginDto)));
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<String> test(){
+        return ResponseEntity.ok("test") ;
+    }
+
 
 }
